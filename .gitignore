@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+
+# Environments
+.venv/
+.env
+
+# Outputs / data (DO NOT COMMIT DATA)
+data/
+datasets/
+outputs/
+results/
+artifacts/

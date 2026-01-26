@@ -1,0 +1,38 @@
+# Locked evaluation configuration (SMC 2026)
+seed: 0
+n_splits: 5
+n_boot: 2000
+n_perm: 20000
+
+# Paths (EDIT THESE)
+paths:
+  casas_feature_table: "PATH/TO/CASAS_FEATURES.csv"
+  tihm_feature_table: "PATH/TO/TIHM_FEATURES.csv"
+
+# Columns
+columns:
+  label: "y"
+  subject_id: "subject_id"
+
+# Feature sets
+features:
+  cov3:
+    - "event_count"
+    - "active_hours"
+    - "unique_rooms"
+  covpp_extra:
+    - "transition_per_event"
+    - "room_prop_1"
+    - "room_prop_2"
+    - "room_prop_3"
+    - "room_prop_4"
+    - "room_prop_5"
+    - "room_prop_6"
+    - "room_prop_7"
+    - "room_prop_8"
+
+# TIHM-only residualization
+tihm_residualization:
+  enabled: true
+  ridge_alpha: 1.0
+  residualize: "covpp_extra"
