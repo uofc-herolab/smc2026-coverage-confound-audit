@@ -1,72 +1,106 @@
-# Measures + Scoring Spec v1 (Week 2)
+# Measures + Scoring Spec v1 (Week 2 — Locked)
 
 ## Objective
-Lock the **final measurement battery** and a **reproducible scoring pipeline** before any data collection.
+Lock a scientifically defensible **measurement battery** and a reproducible **scoring pipeline** before any data collection.
 
-This corresponds to Week 2 in the plan: lock measures + scoring scripts + measurement ledger【Week 2 plan】.
+This file intentionally avoids copying full questionnaire item wording into the repo.
+Use your survey platform (Qualtrics / Google Forms) to host item text; in the repo we keep:
+- citations
+- column naming rules
+- scoring rules
+- code
 
-## Primary outcomes (recommended)
-1) Agency:
-- SoAS (report SoPA and SoNA separately)
-- Plus a simple per-block agency rating (0–100 slider): `agency_block_rating`
+---
 
-2) Workload:
-- NASA-TLX (Raw TLX = mean of 6 subscales)
+## Locked instruments (Week 2 decision)
 
-3) Performance (from task logs, not surveys):
-- success/fail, time, error counts (defined later in Week 3 logging schema)
+### Agency (Primary)
+**Sense of Agency Scale (SoAS)** — Tapal et al. (2017)
+- Output: **SoPA** and **SoNA** scored separately
+- CSV columns:
+  - `sopa_01 ... sopa_N`
+  - `sona_01 ... sona_M`
+- Scoring:
+  - `SoPA = mean(sopa_*)`
+  - `SoNA = mean(sona_*)`
 
-## Secondary outcomes (recommended)
-- Trust in automation scale (select and lock the exact scale this week)
-- Ownership/embodiment short form (select and lock this week)
-- Optional: PROS-TLX if the task strongly mimics prosthesis use
+> Note: We intentionally do not hardcode item counts; your form determines N/M. The scorer averages whatever `sopa_*` and `sona_*` are present.
 
-## Survey structure (forms)
-- **One form per block**: TLX + block agency rating (+ trust/embodiment if you keep them per block)
-- **Final post-study form**: longer trust + embodiment + open-ended comments
+### Workload (Primary)
+**NASA‑TLX (Raw TLX / RTLX)** — Hart (2006)
+- CSV columns (0–100 typical):
+  - `tlx_mental`
+  - `tlx_physical`
+  - `tlx_temporal`
+  - `tlx_performance`
+  - `tlx_effort`
+  - `tlx_frustration`
+- Scoring:
+  - `TLX_RTLX = mean(all 6 tlx_* subscales)`
 
-## CSV column naming (to make scoring easy)
-Design your form or rename columns after export so the CSV has:
+### Trust (Secondary)
+**Trust in Automation / “TIAS” style scale** — Jian, Bisantz, & Drury (2000)
+- Rationale: short, widely used, sensitive to state changes; includes explicit distrust.
+- Admin: recommended **once per controller condition** (UserOnly / ConfBlend / SetACSA / CS‑AAB).
+- CSV columns (recommended naming):
+  - Trust items: `tias_trust_01 ... tias_trust_07`
+  - Distrust items: `tias_distrust_01 ... tias_distrust_05`
+- Scoring outputs:
+  - `TIAS_trust_mean = mean(tias_trust_*)`
+  - `TIAS_distrust_mean = mean(tias_distrust_*)`
+  - `TIAS_total_trust = mean( tias_trust_* plus reverse(tias_distrust_*) )`
+- Reverse coding rule (for 1–7):
+  - `reverse(x) = 8 - x`
 
-### IDs
-- subject_id
-- session_id
-- block_id
-- condition
+> IMPORTANT: Don’t paste the full item text into the repo. Keep item wording in your survey tool and cite the paper.
 
-### Agency
-- sopa_01, sopa_02, ... (SoPA items)
-- sona_01, sona_02, ... (SoNA items)
-- agency_block_rating  (0–100)
+### Embodiment / Ownership (Secondary)
+**Prosthesis Embodiment Scale (PEmbS)** — Bekrater‑Bodmann (2020)
+- Rationale: short (10 items), prosthesis‑focused, open access in the cited summary.
+- Admin: recommended **end‑of‑session** for able‑bodied, optional per‑condition for amputees if time permits.
+- CSV columns:
+  - `pembs_01 ... pembs_10`
+- Scoring:
+  - `PEmbS_total = mean(pembs_01..pembs_10)`
 
-### NASA-TLX
-- tlx_mental
-- tlx_physical
-- tlx_temporal
-- tlx_performance
-- tlx_effort
-- tlx_frustration
+> Subscales exist in the literature, but we do NOT implement subscales until we verify the exact item→factor mapping from the paper tables.
 
-### Trust (placeholder)
-- trust_01, trust_02, ...
+---
 
-### Embodiment (placeholder)
-- embod_01, embod_02, ...
+## Survey structure (practical default)
+Define a “condition block” as the unit where the controller policy is fixed.
 
-## Scoring rules
-- SoPA = mean of all `sopa_*` columns (ignore blanks)
-- SoNA = mean of all `sona_*` columns (ignore blanks)
-- TLX_RTLX = mean of the 6 tlx_* subscales (ignore blanks)
-- Trust = mean of trust_* (ignore blanks)
-- Embodiment = mean of embod_* (ignore blanks)
+### Condition survey (after each condition block)
+- NASA‑TLX (6 subscales)
+- SoAS (SoPA + SoNA items)
+- TIAS (trust + distrust items)
+- Optional quick slider: `agency_block_rating` (0–100)
 
-## Physiology metrics to compute later (Week 2 definition)
-From Delsys:
-- EMG effort: RMS/MAV normalized to a calibration contraction
-- Cocontraction index: overlap between antagonist pairs (define which muscles later)
-- IMU smoothness proxy: jerk or spectral arc length proxy (specify later)
+### Post‑study survey (end of session)
+- PEmbS (10 items)
+- 2 open-ended questions (optional but recommended):
+  - “When did it feel most like YOU were controlling it?”
+  - “When did it feel most like the SYSTEM took over?”
 
-## Outputs
-- `code/score_surveys.py` produces: `surveys/scores.csv`
-- `measures/measurement_ledger_v1.csv` (tracked) and optional .xlsx
+---
 
+## Required IDs (in every survey export)
+- `subject_id`
+- `session_id`
+- `block_id`
+- `condition`
+
+---
+
+## Naming caution
+In this project, **ALI = Agency Loss Index** (controller‑side metric).
+Do NOT reuse “ALI” to mean “assistance-to-liberty” or any other ratio — pick a different acronym if you introduce that concept.
+
+---
+
+## Outputs produced by the scorer
+`code/score_surveys.py` writes a scored CSV with:
+- SoPA, SoNA
+- TLX_RTLX
+- TIAS_trust_mean, TIAS_distrust_mean, TIAS_total_trust
+- PEmbS_total

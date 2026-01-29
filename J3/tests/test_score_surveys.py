@@ -16,6 +16,25 @@ def test_score_surveys_runs(tmp_path: Path):
         rows = list(csv.DictReader(f))
 
     assert len(rows) == 2
-    assert "SoPA" in rows[0]
-    assert "SoNA" in rows[0]
-    assert "TLX_RTLX" in rows[0]
+
+    # Check expected columns exist
+    for k in ["SoPA", "SoNA", "TLX_RTLX", "TIAS_trust_mean", "TIAS_distrust_mean", "TIAS_total_trust", "PEmbS_total"]:
+        assert k in rows[0], f"missing column: {k}"
+
+    # Row 1 expectations (formatted to 4 decimals)
+    assert rows[0]["SoPA"] == "6.5000"
+    assert rows[0]["SoNA"] == "1.5000"
+    assert rows[0]["TLX_RTLX"] == "35.0000"
+    assert rows[0]["TIAS_trust_mean"] == "6.0000"
+    assert rows[0]["TIAS_distrust_mean"] == "2.0000"
+    assert rows[0]["TIAS_total_trust"] == "6.0000"
+    assert rows[0]["PEmbS_total"] == "2.0000"
+
+    # Row 2 expectations
+    assert rows[1]["SoPA"] == "5.5000"
+    assert rows[1]["SoNA"] == "2.5000"
+    assert rows[1]["TLX_RTLX"] == "45.0000"
+    assert rows[1]["TIAS_trust_mean"] == "5.0000"
+    assert rows[1]["TIAS_distrust_mean"] == "3.0000"
+    assert rows[1]["TIAS_total_trust"] == "5.0000"
+    assert rows[1]["PEmbS_total"] == "1.0000"
