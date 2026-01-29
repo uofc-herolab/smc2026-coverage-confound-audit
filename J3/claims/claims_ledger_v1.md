@@ -1,0 +1,14 @@
+# Claims Ledger v1 (J3)
+
+| Claim ID | Claim (one sentence) | Type | Supports | Evidence (citations + note) | Notes / Risks |
+|---|---|---|---|---|---|
+| C01 | SoAS is a validated instrument for perceived agency with separable positive (SoPA) and negative (SoNA) dimensions. | Measurement | H1 | Tapal et al. (2017): SoPA/SoNA reliability + test-retest. | Use per-block administration + clear task-anchored instructions. |
+| C02 | Objective agency interference (ALI) must be validated against subjective agency; J3 tests ALI ↔ SoAS across conditions. | Validity | H1 | Tapal et al. (2017) provides SoAS; J3 correlates with ALI logs. | Control performance confounds with covariates; analyze SoPA/SoNA separately. |
+| C03 | NASA-TLX is a validated multidimensional workload instrument; RTLX is practical for repeated measures. | Measurement | H3 | Hart (2006) “20 years later”. | Use subscales diagnostically; pair with physiology. |
+| C04 | Pupillometry is a sensitive workload proxy but requires preprocessing + baseline correction to avoid artifacts. | Measurement | H3 | Mathôt et al. (2018) preprocessing/baseline correction recommendations. | Lighting SOP + QC/exclusion criteria. |
+| C05 | Shared human–machine control can improve performance and reduce cognitive burden vs user-only prosthetic control. | Motivation | H2/H3 | Trout et al. (2025): success/force improvements + TLX/DRT reductions (as reported). | Trout uses mostly static assistance; J3 extends to constrained + adaptive policies. |
+| C06 | EMG PR control suffers non-stationarity; shared autonomy can stabilize intent when p_u is noisy/uncertain. | Motivation/Methods | Methods/H3 | Scheme & Englehart (2011) clinical PR challenges. | Calibrate probabilities before using confidence/entropy. |
+| C07 | Transparency/predictability supports trust calibration in shared autonomy; surprise autonomy can harm acceptance and perceived control. | Motivation/Risk | H2 | Alonso & de la Puente (2018) transparency mini-review. | Keep cues minimal; monitor TLX frustration/mental demand. |
+| C08 | AugCog evaluation should use convergent workload evidence (subjective + physiology and/or objective workload task). | Methods | H3 | Hart (2006) + Mathôt (2018) + Trout (2025) strategy inspiration. | Keep protocol lean to avoid overhead. |
+| C09 | Agency outcomes can decouple from performance; high success can still increase negative agency (SoNA), so agency must be measured directly. | Validity | H1/H2 | Tapal et al. (2017) SoPA/SoNA separation + transparency framing from Alonso (2018). | Standardize instructions + timing; analyze subscales. |
+| C10 | SOP-level preprocessing for pupil + EMG is required because preprocessing choices can dominate results and reviewer confidence. | Risk control | Methods | Mathôt (2018) + Scheme & Englehart (2011). | Operator checklist + QC flags. |

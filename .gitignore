@@ -15,3 +15,8 @@ datasets/
 outputs/
 results/
 artifacts/
+
+# Local outputs
+local_audits/
+J3/deliverables/
+J3/backups/
