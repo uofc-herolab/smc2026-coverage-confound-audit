@@ -1,0 +1,9 @@
+variable,source,how_computed,scale_or_units,supports_hypothesis,notes
+SoPA,SoAS survey,mean(sopa_*),1-7,H1,Score separately from SoNA
+SoNA,SoAS survey,mean(sona_*),1-7,H1,Negative agency dimension
+agency_block_rating,block survey,slider 0-100,0-100,H1/H2,Quick subjective check per block
+TLX_RTLX,block survey,mean(tlx_mental..tlx_frustration),0-100,H3,Use subscales diagnostically
+tlx_mental,block survey,raw rating,0-100,H3,
+tlx_effort,block survey,raw rating,0-100,H3,
+trust_mean,trust survey,mean(trust_*),scale,H2,Pick exact trust scale this week
+embod_mean,embodiment survey,mean(embod_*),scale,H2,Pick exact embodiment short form this week
