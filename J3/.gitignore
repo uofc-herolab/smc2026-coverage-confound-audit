@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+deliverables/**/*
+!deliverables/**/.keep
+
+# Generated backups
+backups/
+
+# Local archives
+*.zip

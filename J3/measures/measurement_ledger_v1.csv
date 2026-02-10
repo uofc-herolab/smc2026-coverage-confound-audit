@@ -1,0 +1,12 @@
+variable,source,how_computed,scale_or_units,supports_hypothesis,notes
+SoPA,SoAS survey,mean(sopa_*),1-7,H1,Score separately from SoNA
+SoNA,SoAS survey,mean(sona_*),1-7,H1,Negative agency dimension
+agency_block_rating,condition survey,slider value,0-100,H1/H2,Optional quick per-condition rating
+TLX_RTLX,condition survey,mean(tlx_mental..tlx_frustration),0-100,H3,Raw TLX; use subscales diagnostically
+tlx_mental,condition survey,raw rating,0-100,H3,
+tlx_effort,condition survey,raw rating,0-100,H3,
+tlx_frustration,condition survey,raw rating,0-100,H3,
+TIAS_trust_mean,TIAS (Jian 2000),mean(tias_trust_*),1-7,H2,Trust subscale
+TIAS_distrust_mean,TIAS (Jian 2000),mean(tias_distrust_*),1-7,H2,Distrust subscale
+TIAS_total_trust,TIAS (Jian 2000),mean(tias_trust_* + reverse(tias_distrust_*)),1-7,H2,Reverse rule for 1–7: 8-x
+PEmbS_total,PEmbS (Bekrater-Bodmann 2020),mean(pembs_01..pembs_10),-3..+3,H2,Total embodiment score; subscales only after verified mapping
